@@ -30,10 +30,10 @@ typedef uint32_t __wasi_size_t;
 #  include <sys/uio.h>
 #  if defined(__APPLE__)
 #      include <TargetConditionals.h>
-#      if TARGET_OS_MAC
-#          include <sys/random.h>
-#      else // iOS / Simulator
+#      if TARGET_OS_IPHONE // iOS / Simulator
 #          include <Security/Security.h>
+#      else
+#          include <sys/random.h>
 #      endif
 #  else
 #      include <sys/random.h>
