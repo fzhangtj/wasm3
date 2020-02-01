@@ -17,7 +17,6 @@
 # ifndef d_m3CodePageAlignSize
 #   define d_m3CodePageAlignSize                4096
 # endif
-
 # ifndef d_m3MaxFunctionStackHeight
 #   define d_m3MaxFunctionStackHeight           2000
 # endif
