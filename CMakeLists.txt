@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 
 set(OUT_FILE "wasm3")
-set(LIB_FILE "wasm3lib")
 set(APP_DIR  "platforms/app")
 
 if(HARDCODED) # Bundle a wasm binary and run a hard-coded func
@@ -125,7 +124,6 @@ else()
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-O3")
 
   target_link_libraries(${OUT_FILE} m)
-  target_link_libraries(${LIB_FILE} "-framework Security")
 endif()
 
 check_ipo_supported(RESULT result)
