@@ -71,7 +71,7 @@ d_m3OpDef  (CallIndirect)
         {
             // TODO: this can eventually be simplified. by using a shared set of unique M3FuncType objects in
             // M3Environment, the compare can be reduced to a single pointer-compare operation
-
+#if !defined(d_m3SkipCallCheck)
             if (type->numArgs != function->funcType->numArgs)
             {
                 return m3Err_trapIndirectCallTypeMismatch;
@@ -89,7 +89,7 @@ d_m3OpDef  (CallIndirect)
                     return m3Err_trapIndirectCallTypeMismatch;
                 }
             }
-
+#endif
             if (not function->compiled)
                 r = Compile_Function (function);
 
@@ -126,8 +126,6 @@ d_m3OpDef  (CallRawFunction)
 
 d_m3OpDef  (MemCurrent)
 {
-    // TODO: get memory from _mem, so that compiled code isn't tied to a specific runtime
-
     IM3Memory memory            = GetMemoryInfo (_mem);
 
     _r0 = memory->numPages;
@@ -191,6 +189,8 @@ d_m3OpDef  (Compile)
 
 d_m3OpDef  (Entry)
 {
+	d_m3ClearRegisters
+	
     IM3Function function = immediate (IM3Function);
 
 #if defined(d_m3SkipStackCheck)
@@ -208,10 +208,11 @@ d_m3OpDef  (Entry)
         
         function->hits++;                                       m3log (exec, " enter %p > %s %s", _pc - 2, function->name ? function->name : ".unnamed", SPrintFunctionArgList (function, _sp));
 
+        m3stack_t stack = _sp + function->funcType->numArgs;
         u32 numLocals = function->numLocals;
 
-        m3stack_t stack = _sp + GetFunctionNumArgs (function);
-        while (numLocals--)                                     // it seems locals need to init to zero (at least for optimized Wasm code) TODO: see if this is still true.
+        // zero locals
+        while (numLocals--)
             * (stack++) = 0;
 
         if (function->constants) {
@@ -257,10 +258,10 @@ d_m3OpDef  (GetGlobal)
 }
 
 
-d_m3OpDef  (SetGlobal_i)
+d_m3OpDef  (SetGlobal_i32)
 {
-    i64 * global = immediate (i64 *);
-    * global = _r0;                         //  printf ("set global: %p %" PRIi64 "\n", global, _r0);
+    u32 * global = immediate (u32 *);
+    * global = (u32) _r0;                         //  printf ("set global: %p %" PRIi64 "\n", global, _r0);
 
     return nextOp ();
 }
@@ -273,18 +274,30 @@ d_m3OpDef  (SetGlobal_i32)
     return nextOp ();
 }
 
+d_m3OpDef  (SetGlobal_i64)
+{
+    u64 * global = immediate (u64 *);
+    * global = (u64) _r0;                         //  printf ("set global: %p %" PRIi64 "\n", global, _r0);
+
+    return nextOp ();
+}
+
 
 d_m3OpDef  (Loop)
 {
+	// regs are unused coming into a loop anyway
+	// this reduces code size & stack usage
+	d_m3ClearRegisters
+
     m3ret_t r;
 
     IM3Memory memory = GetMemoryInfo (_mem);
 
     do
     {
-        // linear memory pointer needs refreshed here because the block it's loop over
-        // can potentially invoke the grow operator.
         r = nextOp ();                     // printf ("loop: %p\n", r);
+        // linear memory pointer needs refreshed here because the block it's looping over
+        // can potentially invoke the grow operation.
         _mem = memory->mallocated;
     }
     while (r == _pc);
@@ -293,11 +306,15 @@ d_m3OpDef  (Loop)
 }
 
 
+d_m3OpDef  (Branch)
+{
+    return jumpOp (* _pc);
+}
+
+
 d_m3OpDef  (If_r)
 {
     i32 condition = (i32) _r0;
-
-    skip_immediate (pc_t);                      // empty preservation chain
 
     pc_t elsePC = immediate (pc_t);
 
@@ -312,25 +329,7 @@ d_m3OpDef  (If_s)
 {
     i32 condition = slot (i32);
 
-    skip_immediate (pc_t);                      // empty preservation chain
-
     pc_t elsePC = immediate (pc_t);
-
-    if (condition)
-        return nextOp ();
-    else
-        return jumpOp (elsePC);
-}
-
-
-d_m3OpDef  (IfPreserve)
-{
-    i32 condition = (i32) _r0;
-
-    pc_t p = immediate (pc_t);
-    jumpOp (p);
-
-    pc_t elsePC = immediate (pc_t);         //printf ("else: %p\n", elsePC);
 
     if (condition)
         return nextOp ();
@@ -353,6 +352,35 @@ d_m3OpDef  (BranchTable)
 }
 
 
+#define d_m3SetRegisterSetSlot(TYPE, REG) \
+d_m3OpDef  (SetRegister_##TYPE)         \
+{                                       \
+    REG = slot (TYPE);                  \
+    return nextOp ();                   \
+}                                       \
+                                        \
+d_m3OpDef (SetSlot_##TYPE)              \
+{                                       \
+    slot (TYPE) = (TYPE) REG;           \
+    return nextOp ();                   \
+}                                       \
+                                        \
+d_m3OpDef (PreserveSetSlot_##TYPE)      \
+{                                       \
+    TYPE * stack     = slot_ptr (TYPE); \
+    TYPE * preserve  = slot_ptr (TYPE); \
+                                        \
+    * preserve = * stack;               \
+    * stack = (TYPE) REG;               \
+                                        \
+    return nextOp ();                   \
+}
+
+d_m3SetRegisterSetSlot (i32, _r0)
+d_m3SetRegisterSetSlot (i64, _r0)
+d_m3SetRegisterSetSlot (f32, _fp0)
+d_m3SetRegisterSetSlot (f64, _fp0)
+
 
 d_m3OpDef (CopySlot_32)
 {
@@ -361,6 +389,19 @@ d_m3OpDef (CopySlot_32)
 
     * dst = * src;
 
+    return nextOp ();
+}
+
+
+d_m3OpDef (PreserveCopySlot_32)
+{
+    u32 * dest      = slot_ptr (u32);
+    u32 * src       = slot_ptr (u32);
+    u32 * preserve  = slot_ptr (u32);
+    
+    * preserve = * dest;
+    * dest = * src;
+    
     return nextOp ();
 }
 
@@ -375,6 +416,18 @@ d_m3OpDef (CopySlot_64)
     return nextOp ();
 }
 
+
+d_m3OpDef (PreserveCopySlot_64)
+{
+    u64 * dest      = slot_ptr (u64);
+    u64 * src       = slot_ptr (u64);
+    u64 * preserve  = slot_ptr (u64);
+    
+    * preserve = * dest;
+    * dest = * src;
+    
+    return nextOp ();
+}
 
 
 #if d_m3RuntimeStackDumps

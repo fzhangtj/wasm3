@@ -8,11 +8,14 @@
 #ifndef m3_env_h
 #define m3_env_h
 
-#include "m3.h"
+#include "wasm3.h"
 #include "m3_code.h"
 #include "m3_exec.h"
 #include "m3_compile.h"
 
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 typedef struct M3FuncType
 {
@@ -228,11 +231,13 @@ typedef struct M3Runtime
     M3Result                runtimeError;
 
     M3Memory                memory;
+    u32                     memoryLimit;
 
     M3ErrorInfo             error;
 #if defined(d_m3VerboseLogs)
     char                    error_message[256];
 #endif
+    i32                     exit_code;
 }
 M3Runtime;
 
@@ -259,5 +264,8 @@ M3Result                    PopRuntimeStackTop          (IM3Runtime i_runtime);
 
 M3Result                    m3Error                     (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function, const char * const i_file, u32 i_lineNum, const char * const i_errorMessage, ...);
 
+#if defined(__cplusplus)
+}
+#endif
 
 #endif // m3_env_h

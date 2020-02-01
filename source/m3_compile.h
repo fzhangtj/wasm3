@@ -11,6 +11,9 @@
 #include "m3_code.h"
 #include "m3_exec_defs.h"
 
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 enum
 {
@@ -90,11 +93,11 @@ typedef struct
 
     u64                 constants                   [d_m3MaxNumFunctionConstants];
 
-    // for args/locals this wasmStack tracks write counts. for the dynamic portion of the stack, the array holds slot locations
+    // 'wasmStack' is unused for args/locals. for the dynamic portion of the stack, 'wasmStack' holds slot locations
     u16                 wasmStack                   [d_m3MaxFunctionStackHeight];
     u8                  typeStack                   [d_m3MaxFunctionStackHeight];
 
-    // OPTZ: this array just contains single bit allocation flags.  could be fused with the typeStack to conserve space
+    // 'm3Slots' contains allocation usage counts
     u8                  m3Slots                     [d_m3MaxFunctionStackHeight];
 
     u16                 numAllocatedExecSlots;
@@ -157,7 +160,6 @@ M3Result    Push                        (IM3Compilation o, u8 i_waType, i16 i_lo
 void        EmitPointer                 (IM3Compilation o, const void * const i_immediate);
 
 M3Result    CompileBlock                (IM3Compilation io, u8 i_blockType, u8 i_blockOpcode);
-M3Result    Compile_ElseBlock           (IM3Compilation io, pc_t * o_startPC, u8 i_blockType);
 
 M3Result    Compile_BlockStatements     (IM3Compilation io);
 M3Result    Compile_Function            (IM3Function io_function);
@@ -165,6 +167,8 @@ M3Result    Compile_Function            (IM3Function io_function);
 bool        PeekNextOpcode              (IM3Compilation o, u8 i_opcode);
 u16         GetMaxExecSlot              (IM3Compilation o);
 
-//M3Result  Optimize_ConstOp            (IM3Compilation o, u64 i_word, u8 i_waType);
+#if defined(__cplusplus)
+}
+#endif
 
 #endif // m3_compile_h

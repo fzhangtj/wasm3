@@ -10,7 +10,7 @@
 #include <time.h>
 #include <ctype.h>
 
-#include "m3.h"
+#include "wasm3.h"
 #include "m3_api_wasi.h"
 #include "m3_api_libc.h"
 #include "m3_env.h"
@@ -273,6 +273,9 @@ int  main  (int i_argc, const char* i_argv[])
             } else {
                 result = repl_call(runtime, argFunc, i_argc, i_argv);
             }
+            if (result == m3Err_trapExit) {
+                return runtime->exit_code;
+            }
             if (result) FATAL("repl_call: %s", result);
         }
     }
@@ -314,6 +317,10 @@ int  main  (int i_argc, const char* i_argv[])
             M3ErrorInfo info;
             m3_GetErrorInfo (runtime, &info);
             fprintf (stderr, " (%s)\n", info.message);
+            if (result == m3Err_trapExit) {
+                // warn that exit was called
+                fprintf(stderr, M3_ARCH "-wasi: exit(%d)\n", runtime->exit_code);
+            }
         }
     }
 

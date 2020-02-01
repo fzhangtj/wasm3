@@ -6,7 +6,7 @@
 //
 
 #define M3_IMPLEMENT_ERROR_STRINGS
-#include "m3.h"
+#include "wasm3.h"
 
 #include "m3_core.h"
 
@@ -22,8 +22,9 @@ void m3NotImplemented() {
 }
 
 M3_WEAK
-void m3Yield ()
+M3Result m3_Yield ()
 {
+    return m3Err_none;
 }
 
 #if d_m3FixedHeap

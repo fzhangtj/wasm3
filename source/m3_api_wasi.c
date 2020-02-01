@@ -28,11 +28,16 @@ typedef uint32_t __wasi_size_t;
 #if defined(__wasi__) || defined(__APPLE__) || defined(__ANDROID_API__) || defined(__OpenBSD__) || defined(__linux__)
 #  include <unistd.h>
 #  include <sys/uio.h>
-#if defined(__APPLE__)
-#  import <Security/Security.h>
-#else
-#  include <sys/random.h>
-#endif
+#  if defined(__APPLE__)
+#      include <TargetConditionals.h>
+#      if TARGET_OS_MAC
+#          include <sys/random.h>
+#      else // iOS / Simulator
+#          include <Security/Security.h>
+#      endif
+#  else
+#      include <sys/random.h>
+#  endif
 #  define HAS_IOVEC
 #elif defined(_WIN32)
 #  include <Windows.h>
@@ -539,15 +544,11 @@ m3ApiRawFunction(m3_wasi_unstable_random_get)
 
 #if defined(__wasi__) || defined(__APPLE__) || defined(__ANDROID_API__) || defined(__OpenBSD__)
         size_t reqlen = min(buflen, 256);
-#if defined(__APPLE__)
-        if (SecRandomCopyBytes(kSecRandomDefault, reqlen, buf) < 0) {
-#else
-        if (getentropy(buf, reqlen) < 0) {
-#endif
-            retlen = -1;
-        } else {
-            retlen = reqlen;
-        }
+#   if defined(__APPLE__) && (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+        retlen = SecRandomCopyBytes(kSecRandomDefault, reqlen, buf) < 0 ? -1 : reqlen;
+#   else
+        retlen = getentropy(buf, reqlen) < 0 ? -1 : reqlen;
+#   endif
 #elif defined(__FreeBSD__) || defined(__linux__)
         retlen = getrandom(buf, buflen, 0);
 #elif defined(_WIN32)
@@ -617,10 +618,9 @@ m3ApiRawFunction(m3_wasi_unstable_proc_exit)
     m3ApiReturnType  (uint32_t)
     m3ApiGetArg      (uint32_t, code)
 
-    // TODO: in repl mode, trap and bail out
-    if (code) {
-        fprintf(stderr, M3_ARCH "-wasi: exit(%d)\n", code);
-    }
+    if (runtime == NULL) { m3ApiReturn(__WASI_EINVAL); }
+
+    runtime->exit_code = code;
 
     m3ApiTrap(m3Err_trapExit);
 }
