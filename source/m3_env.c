@@ -807,7 +807,6 @@ IM3CodePage  AcquireCodePageWithCapacityR  (IM3Runtime i_runtime, u32 i_lineCoun
     if (i_runtime->pagesOpen)
     {
         page = PopCodePage (& i_runtime->pagesOpen);
-        i_runtime->numActiveCodePages++;
 
         if (NumFreeLines (page) < i_lineCount)
         {
@@ -823,7 +822,6 @@ IM3CodePage  AcquireCodePageWithCapacityR  (IM3Runtime i_runtime, u32 i_lineCoun
         if (page)
         {
             i_runtime->numCodePages++;
-            i_runtime->numActiveCodePages++;
         }
     }
 

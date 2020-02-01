@@ -634,13 +634,8 @@ d_m3Op  (End)
 
 
 d_m3OpDecl  (GetGlobal)
-<<<<<<< HEAD
-d_m3OpDecl  (SetGlobal_i)
-d_m3OpDecl  (SetGlobal_i32)
-=======
 d_m3OpDecl  (SetGlobal_i32)
 d_m3OpDecl  (SetGlobal_i64)
->>>>>>> upstream/master
 
 
 d_m3Op  (SetGlobal_s32)
@@ -685,38 +680,11 @@ d_m3OpDecl (PreserveCopySlot_32)
 d_m3OpDecl (CopySlot_64)
 d_m3OpDecl (PreserveCopySlot_64)
 
-<<<<<<< HEAD
-#define d_m3SetRegisterSetSlot(TYPE, REG) \
-d_m3Op  (SetRegister_##TYPE)            \
-{                                       \
-    REG = slot (TYPE);                  \
-    return nextOp ();                   \
-}                                       \
-                                        \
-d_m3Op (SetSlot_##TYPE)                 \
-{                                       \
-    slot (TYPE) = (TYPE) REG;           \
-    return nextOp ();                   \
-}                                       \
-                                        \
-d_m3Op (PreserveSetSlot_##TYPE)         \
-{                                       \
-    TYPE * stack     = slot_ptr (TYPE); \
-    TYPE * preserve  = slot_ptr (TYPE); \
-                                        \
-    * preserve = * stack;               \
-    * stack = (TYPE) REG;               \
-\
-    return nextOp ();                   \
-}
-
-=======
 #define d_m3SetRegisterSetSlotDecl(TYPE)    \
                                             \
 d_m3OpDecl (SetRegister_##TYPE)             \
 d_m3OpDecl (SetSlot_##TYPE)                 \
 d_m3OpDecl (PreserveSetSlot_##TYPE)         \
->>>>>>> upstream/master
 
 d_m3SetRegisterSetSlotDecl (i32)
 d_m3SetRegisterSetSlotDecl (i64)
