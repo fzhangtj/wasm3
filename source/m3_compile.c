@@ -257,7 +257,7 @@ u16  GetMaxExecSlot  (IM3Compilation o)
             break;
 
         if (o->m3Slots [i])
-            allocated -= o->m3Slots[i];
+            --allocated;
 
         ++i;
     }
