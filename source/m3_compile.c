@@ -710,6 +710,8 @@ _               (IncrementSlotUsageCount (o, * o_preservedSlotIndex));
     _catch: return result;
 }
 
+
+
 M3Result  GetBlockScope  (IM3Compilation o, IM3CompilationScope * o_scope, i32 i_depth)
 {
     IM3CompilationScope scope = & o->block;
