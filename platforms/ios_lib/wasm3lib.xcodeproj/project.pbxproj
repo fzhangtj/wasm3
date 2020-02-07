@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E67BA14A23ED4DA100DCA1DE /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA13C23ED4DA000DCA1DE /* m3_module.c */; };
+		E67BA14B23ED4DA100DCA1DE /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA13D23ED4DA000DCA1DE /* m3_code.c */; };
+		E67BA14C23ED4DA100DCA1DE /* m3_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA13E23ED4DA000DCA1DE /* m3_exec.c */; };
+		E67BA14D23ED4DA100DCA1DE /* m3_api_wasi.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA13F23ED4DA000DCA1DE /* m3_api_wasi.c */; };
+		E67BA14E23ED4DA100DCA1DE /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14023ED4DA000DCA1DE /* m3_env.c */; };
+		E67BA14F23ED4DA100DCA1DE /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14123ED4DA000DCA1DE /* m3_compile.c */; };
+		E67BA15023ED4DA100DCA1DE /* m3_optimize.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14223ED4DA000DCA1DE /* m3_optimize.c */; };
+		E67BA15123ED4DA100DCA1DE /* m3_api_libc.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14323ED4DA000DCA1DE /* m3_api_libc.c */; };
+		E67BA15223ED4DA100DCA1DE /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14423ED4DA000DCA1DE /* m3_core.c */; };
+		E67BA15323ED4DA100DCA1DE /* m3_api_meta_wasi.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14523ED4DA000DCA1DE /* m3_api_meta_wasi.c */; };
+		E67BA15423ED4DA100DCA1DE /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14623ED4DA100DCA1DE /* m3_bind.c */; };
+		E67BA15523ED4DA100DCA1DE /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14723ED4DA100DCA1DE /* m3_info.c */; };
+		E67BA15623ED4DA100DCA1DE /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14823ED4DA100DCA1DE /* m3_parse.c */; };
+		E67BA15723ED4DA100DCA1DE /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = E67BA14923ED4DA100DCA1DE /* m3_emit.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D081FF978229435DB9A19AAD /* libm3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libm3.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67BA13C23ED4DA000DCA1DE /* m3_module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_module.c; path = ../source/m3_module.c; sourceTree = "<group>"; };
+		E67BA13D23ED4DA000DCA1DE /* m3_code.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_code.c; path = ../source/m3_code.c; sourceTree = "<group>"; };
+		E67BA13E23ED4DA000DCA1DE /* m3_exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_exec.c; path = ../source/m3_exec.c; sourceTree = "<group>"; };
+		E67BA13F23ED4DA000DCA1DE /* m3_api_wasi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_api_wasi.c; path = ../source/m3_api_wasi.c; sourceTree = "<group>"; };
+		E67BA14023ED4DA000DCA1DE /* m3_env.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_env.c; path = ../source/m3_env.c; sourceTree = "<group>"; };
+		E67BA14123ED4DA000DCA1DE /* m3_compile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_compile.c; path = ../source/m3_compile.c; sourceTree = "<group>"; };
+		E67BA14223ED4DA000DCA1DE /* m3_optimize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_optimize.c; path = ../source/m3_optimize.c; sourceTree = "<group>"; };
+		E67BA14323ED4DA000DCA1DE /* m3_api_libc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_api_libc.c; path = ../source/m3_api_libc.c; sourceTree = "<group>"; };
+		E67BA14423ED4DA000DCA1DE /* m3_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_core.c; path = ../source/m3_core.c; sourceTree = "<group>"; };
+		E67BA14523ED4DA000DCA1DE /* m3_api_meta_wasi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_api_meta_wasi.c; path = ../source/m3_api_meta_wasi.c; sourceTree = "<group>"; };
+		E67BA14623ED4DA100DCA1DE /* m3_bind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_bind.c; path = ../source/m3_bind.c; sourceTree = "<group>"; };
+		E67BA14723ED4DA100DCA1DE /* m3_info.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_info.c; path = ../source/m3_info.c; sourceTree = "<group>"; };
+		E67BA14823ED4DA100DCA1DE /* m3_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_parse.c; path = ../source/m3_parse.c; sourceTree = "<group>"; };
+		E67BA14923ED4DA100DCA1DE /* m3_emit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m3_emit.c; path = ../source/m3_emit.c; sourceTree = "<group>"; };
+		E67BA15F23ED5CF700DCA1DE /* wasm3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wasm3.h; path = ../source/wasm3.h; sourceTree = "<group>"; };
+		E67BA16023ED5CF700DCA1DE /* m3_api_libc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_api_libc.h; path = ../source/m3_api_libc.h; sourceTree = "<group>"; };
+		E67BA16123ED5CF700DCA1DE /* m3_emit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_emit.h; path = ../source/m3_emit.h; sourceTree = "<group>"; };
+		E67BA16223ED5CF700DCA1DE /* m3_math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_math_utils.h; path = ../source/m3_math_utils.h; sourceTree = "<group>"; };
+		E67BA16323ED5CF700DCA1DE /* m3_exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_exception.h; path = ../source/m3_exception.h; sourceTree = "<group>"; };
+		E67BA16423ED5CF700DCA1DE /* m3_api_wasi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_api_wasi.h; path = ../source/m3_api_wasi.h; sourceTree = "<group>"; };
+		E67BA16523ED5CF700DCA1DE /* m3_exec_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_exec_defs.h; path = ../source/m3_exec_defs.h; sourceTree = "<group>"; };
+		E67BA16623ED5CF800DCA1DE /* m3_config_platforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_config_platforms.h; path = ../source/m3_config_platforms.h; sourceTree = "<group>"; };
+		E67BA16723ED5CF800DCA1DE /* m3_api_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_api_defs.h; path = ../source/m3_api_defs.h; sourceTree = "<group>"; };
+		E67BA16823ED5CF800DCA1DE /* m3_compile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_compile.h; path = ../source/m3_compile.h; sourceTree = "<group>"; };
+		E67BA16923ED5CF800DCA1DE /* m3_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_code.h; path = ../source/m3_code.h; sourceTree = "<group>"; };
+		E67BA16A23ED5CF800DCA1DE /* m3_env.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_env.h; path = ../source/m3_env.h; sourceTree = "<group>"; };
+		E67BA16B23ED5CF800DCA1DE /* m3_exec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_exec.h; path = ../source/m3_exec.h; sourceTree = "<group>"; };
+		E67BA16C23ED5CF800DCA1DE /* m3_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_info.h; path = ../source/m3_info.h; sourceTree = "<group>"; };
+		E67BA16D23ED5CF800DCA1DE /* m3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3.h; path = ../source/m3.h; sourceTree = "<group>"; };
+		E67BA16E23ED5CF800DCA1DE /* m3_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_core.h; path = ../source/m3_core.h; sourceTree = "<group>"; };
+		E67BA16F23ED5CF800DCA1DE /* m3_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m3_config.h; path = ../source/m3_config.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3E387610B4BB48118C5C76DD /* m3 */ = {
+			isa = PBXGroup;
+			children = (
+				DA7B5419A2AE4089932F7EE3 /* Source Files */,
+			);
+			name = m3;
+			sourceTree = "<group>";
+		};
+		94F9DFFC9C3C47CF97FD53EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D081FF978229435DB9A19AAD /* libm3.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA7B5419A2AE4089932F7EE3 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				E67BA16723ED5CF800DCA1DE /* m3_api_defs.h */,
+				E67BA16023ED5CF700DCA1DE /* m3_api_libc.h */,
+				E67BA16423ED5CF700DCA1DE /* m3_api_wasi.h */,
+				E67BA16923ED5CF800DCA1DE /* m3_code.h */,
+				E67BA16823ED5CF800DCA1DE /* m3_compile.h */,
+				E67BA16623ED5CF800DCA1DE /* m3_config_platforms.h */,
+				E67BA16F23ED5CF800DCA1DE /* m3_config.h */,
+				E67BA16E23ED5CF800DCA1DE /* m3_core.h */,
+				E67BA16123ED5CF700DCA1DE /* m3_emit.h */,
+				E67BA16A23ED5CF800DCA1DE /* m3_env.h */,
+				E67BA16323ED5CF700DCA1DE /* m3_exception.h */,
+				E67BA16523ED5CF700DCA1DE /* m3_exec_defs.h */,
+				E67BA16B23ED5CF800DCA1DE /* m3_exec.h */,
+				E67BA16C23ED5CF800DCA1DE /* m3_info.h */,
+				E67BA16223ED5CF700DCA1DE /* m3_math_utils.h */,
+				E67BA16D23ED5CF800DCA1DE /* m3.h */,
+				E67BA15F23ED5CF700DCA1DE /* wasm3.h */,
+				E67BA14323ED4DA000DCA1DE /* m3_api_libc.c */,
+				E67BA14523ED4DA000DCA1DE /* m3_api_meta_wasi.c */,
+				E67BA13F23ED4DA000DCA1DE /* m3_api_wasi.c */,
+				E67BA14623ED4DA100DCA1DE /* m3_bind.c */,
+				E67BA13D23ED4DA000DCA1DE /* m3_code.c */,
+				E67BA14123ED4DA000DCA1DE /* m3_compile.c */,
+				E67BA14423ED4DA000DCA1DE /* m3_core.c */,
+				E67BA14923ED4DA100DCA1DE /* m3_emit.c */,
+				E67BA14023ED4DA000DCA1DE /* m3_env.c */,
+				E67BA13E23ED4DA000DCA1DE /* m3_exec.c */,
+				E67BA14723ED4DA100DCA1DE /* m3_info.c */,
+				E67BA13C23ED4DA000DCA1DE /* m3_module.c */,
+				E67BA14223ED4DA000DCA1DE /* m3_optimize.c */,
+				E67BA14823ED4DA100DCA1DE /* m3_parse.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		E3EDA9493343416596D2AE03 = {
+			isa = PBXGroup;
+			children = (
+				3E387610B4BB48118C5C76DD /* m3 */,
+				94F9DFFC9C3C47CF97FD53EA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8E372A3216904C2FB6B7DB4F /* m3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5F43860670DF4C9380742364 /* Build configuration list for PBXNativeTarget "m3" */;
+			buildPhases = (
+				330C58EE916A43EB8A56A302 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = m3;
+			productName = m3;
+			productReference = D081FF978229435DB9A19AAD /* libm3.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A833F7D178940AEAC407B2A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1130;
+			};
+			buildConfigurationList = C2142AA3E6034520B7F82A01 /* Build configuration list for PBXProject "wasm3lib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E3EDA9493343416596D2AE03;
+			projectDirPath = ../;
+			projectRoot = "";
+			targets = (
+				8E372A3216904C2FB6B7DB4F /* m3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		330C58EE916A43EB8A56A302 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67BA15723ED4DA100DCA1DE /* m3_emit.c in Sources */,
+				E67BA15123ED4DA100DCA1DE /* m3_api_libc.c in Sources */,
+				E67BA15623ED4DA100DCA1DE /* m3_parse.c in Sources */,
+				E67BA15523ED4DA100DCA1DE /* m3_info.c in Sources */,
+				E67BA14B23ED4DA100DCA1DE /* m3_code.c in Sources */,
+				E67BA15423ED4DA100DCA1DE /* m3_bind.c in Sources */,
+				E67BA14F23ED4DA100DCA1DE /* m3_compile.c in Sources */,
+				E67BA14C23ED4DA100DCA1DE /* m3_exec.c in Sources */,
+				E67BA14D23ED4DA100DCA1DE /* m3_api_wasi.c in Sources */,
+				E67BA14A23ED4DA100DCA1DE /* m3_module.c in Sources */,
+				E67BA15023ED4DA100DCA1DE /* m3_optimize.c in Sources */,
+				E67BA15323ED4DA100DCA1DE /* m3_api_meta_wasi.c in Sources */,
+				E67BA15223ED4DA100DCA1DE /* m3_core.c in Sources */,
+				E67BA14E23ED4DA100DCA1DE /* m3_env.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		073569FF9E6A49229A458AC0 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/fzhang/codebase/wasm3/source/.;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-Dd_m3HasWASI",
+					"-Wall",
+					"-Wextra",
+					"-Wparentheses",
+					"-Wundef",
+					"-Wpointer-arith",
+					"-Wstrict-aliasing=2",
+					"-Werror=shadow",
+					"-Werror=implicit-function-declaration",
+					"-Wno-unused-function",
+					"-Wno-unused-variable",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-DNDEBUG",
+					"'-std=c11'",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = m3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/source;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		22594710B6FC4B6691BD9685 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/build;
+			};
+			name = Debug;
+		};
+		385113AF3357405795D36962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/fzhang/codebase/wasm3/source/.;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-Dd_m3HasWASI",
+					"-Wall",
+					"-Wextra",
+					"-Wparentheses",
+					"-Wundef",
+					"-Wpointer-arith",
+					"-Wstrict-aliasing=2",
+					"-Werror=shadow",
+					"-Werror=implicit-function-declaration",
+					"-Wno-unused-function",
+					"-Wno-unused-variable",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-DDEBUG=1",
+					"'-std=c11'",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = m3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/source;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		45F5339BC36B4A5AA02BB916 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/fzhang/codebase/wasm3/source/.;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-Dd_m3HasWASI",
+					"-Wall",
+					"-Wextra",
+					"-Wparentheses",
+					"-Wundef",
+					"-Wpointer-arith",
+					"-Wstrict-aliasing=2",
+					"-Werror=shadow",
+					"-Werror=implicit-function-declaration",
+					"-Wno-unused-function",
+					"-Wno-unused-variable",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wfatal-errors",
+					"-fomit-frame-pointer",
+					"-fno-stack-check",
+					"-fno-stack-protector",
+					"'-std=c11'",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = m3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/source;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		61D450F2986D4C7EB5D6C8B4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/build;
+			};
+			name = MinSizeRel;
+		};
+		675A1F3C9EDB4B9FB8D839AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/build;
+			};
+			name = Release;
+		};
+		C6AA067BD06945389120AB2B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/fzhang/codebase/wasm3/source/.;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-Dd_m3HasWASI",
+					"-Wall",
+					"-Wextra",
+					"-Wparentheses",
+					"-Wundef",
+					"-Wpointer-arith",
+					"-Wstrict-aliasing=2",
+					"-Werror=shadow",
+					"-Werror=implicit-function-declaration",
+					"-Wno-unused-function",
+					"-Wno-unused-variable",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-DNDEBUG",
+					"'-std=c11'",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = m3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/source;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		DF9271BB571D4CA78C4D593B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = /Users/fzhang/codebase/wasm3/build/build;
+			};
+			name = RelWithDebInfo;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5F43860670DF4C9380742364 /* Build configuration list for PBXNativeTarget "m3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				385113AF3357405795D36962 /* Debug */,
+				45F5339BC36B4A5AA02BB916 /* Release */,
+				073569FF9E6A49229A458AC0 /* MinSizeRel */,
+				C6AA067BD06945389120AB2B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C2142AA3E6034520B7F82A01 /* Build configuration list for PBXProject "wasm3lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22594710B6FC4B6691BD9685 /* Debug */,
+				675A1F3C9EDB4B9FB8D839AB /* Release */,
+				61D450F2986D4C7EB5D6C8B4 /* MinSizeRel */,
+				DF9271BB571D4CA78C4D593B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A833F7D178940AEAC407B2A /* Project object */;
+}
