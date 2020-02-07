@@ -44,7 +44,7 @@ d_m3OpDef  (Call)
     if (r == 0)
     {
         _mem = memory->mallocated;
-        return nextOp ();
+        nextOp ();
     }
     else return r;
 }
@@ -100,7 +100,7 @@ d_m3OpDef  (CallIndirect)
                 if (not r)
                 {
                     _mem = memory->mallocated;
-                    r = nextOp ();
+                    r = nextOpDirect ();
                 }
             }
         }
@@ -130,7 +130,7 @@ d_m3OpDef  (MemCurrent)
 
     _r0 = memory->numPages;
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -153,7 +153,7 @@ d_m3OpDef  (MemGrow)
         _mem = memory->mallocated;
     }
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -178,7 +178,7 @@ d_m3OpDef  (Compile)
         // patch up compiled pc and call rewriten op_Call
         *((size_t *) --_pc) = (size_t) (function->compiled);
         --_pc;
-        result = nextOp ();
+        result = nextOpDirect ();
     }
     else ReportError2 (function, result);
 
@@ -189,8 +189,8 @@ d_m3OpDef  (Compile)
 
 d_m3OpDef  (Entry)
 {
-	d_m3ClearRegisters
-	
+    d_m3ClearRegisters
+    
     IM3Function function = immediate (IM3Function);
 
 #if defined(d_m3SkipStackCheck)
@@ -219,7 +219,7 @@ d_m3OpDef  (Entry)
             memcpy (stack, function->constants, function->numConstants * sizeof (u64));
         }
 
-        m3ret_t r = nextOp ();
+        m3ret_t r = nextOpDirect ();
 
     //       f64 end = 0.0;
     // if (!clock_gettime(CLOCK_MONOTONIC, &tp)) {
@@ -254,7 +254,7 @@ d_m3OpDef  (GetGlobal)
     i64 * global = immediate (i64 *);
     slot (i64) = * global;                  //  printf ("get global: %p %" PRIi64 "\n", global, *global);
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -263,7 +263,7 @@ d_m3OpDef  (SetGlobal_i32)
     u32 * global = immediate (u32 *);
     * global = (u32) _r0;                         //  printf ("set global: %p %" PRIi64 "\n", global, _r0);
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -272,15 +272,15 @@ d_m3OpDef  (SetGlobal_i64)
     u64 * global = immediate (u64 *);
     * global = (u64) _r0;                         //  printf ("set global: %p %" PRIi64 "\n", global, _r0);
 
-    return nextOp ();
+    nextOp ();
 }
 
 
 d_m3OpDef  (Loop)
 {
-	// regs are unused coming into a loop anyway
-	// this reduces code size & stack usage
-	d_m3ClearRegisters
+    // regs are unused coming into a loop anyway
+    // this reduces code size & stack usage
+    d_m3ClearRegisters
 
     m3ret_t r;
 
@@ -288,7 +288,7 @@ d_m3OpDef  (Loop)
 
     do
     {
-        r = nextOp ();                     // printf ("loop: %p\n", r);
+        r = nextOpDirect ();                     // printf ("loop: %p\n", r);
         // linear memory pointer needs refreshed here because the block it's looping over
         // can potentially invoke the grow operation.
         _mem = memory->mallocated;
@@ -312,7 +312,7 @@ d_m3OpDef  (If_r)
     pc_t elsePC = immediate (pc_t);
 
     if (condition)
-        return nextOp ();
+        nextOp ();
     else
         return jumpOp (elsePC);
 }
@@ -325,7 +325,7 @@ d_m3OpDef  (If_s)
     pc_t elsePC = immediate (pc_t);
 
     if (condition)
-        return nextOp ();
+        nextOp ();
     else
         return jumpOp (elsePC);
 }
@@ -349,13 +349,13 @@ d_m3OpDef  (BranchTable)
 d_m3OpDef  (SetRegister_##TYPE)         \
 {                                       \
     REG = slot (TYPE);                  \
-    return nextOp ();                   \
+    nextOp ();                          \
 }                                       \
                                         \
 d_m3OpDef (SetSlot_##TYPE)              \
 {                                       \
     slot (TYPE) = (TYPE) REG;           \
-    return nextOp ();                   \
+    nextOp ();                          \
 }                                       \
                                         \
 d_m3OpDef (PreserveSetSlot_##TYPE)      \
@@ -366,7 +366,7 @@ d_m3OpDef (PreserveSetSlot_##TYPE)      \
     * preserve = * stack;               \
     * stack = (TYPE) REG;               \
                                         \
-    return nextOp ();                   \
+    nextOp ();                          \
 }
 
 d_m3SetRegisterSetSlot (i32, _r0)
@@ -382,7 +382,7 @@ d_m3OpDef (CopySlot_32)
 
     * dst = * src;
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -395,7 +395,7 @@ d_m3OpDef (PreserveCopySlot_32)
     * preserve = * dest;
     * dest = * src;
     
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -406,7 +406,7 @@ d_m3OpDef (CopySlot_64)
 
     * dst = * src;                  // printf ("copy: %p <- %" PRIi64 " <- %p\n", dst, * dst, src);
 
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -419,7 +419,7 @@ d_m3OpDef (PreserveCopySlot_64)
     * preserve = * dest;
     * dest = * src;
     
-    return nextOp ();
+    nextOp ();
 }
 
 
@@ -458,7 +458,7 @@ d_m3OpDef  (DumpStack)
 
 # if d_m3EnableOpProfiling
 //--------------------------------------------------------------------------------------------------------
-M3ProfilerSlot s_opProfilerCounts [c_m3ProfilerSlotMask] = {};
+M3ProfilerSlot s_opProfilerCounts [c_m3ProfilerSlotMask + 1] = {};
 
 void  ProfileHit  (cstr_t i_operationName)
 {
@@ -478,15 +478,34 @@ void  ProfileHit  (cstr_t i_operationName)
     slot->hitCount++;
 }
 
+
 void  m3_PrintProfilerInfo  ()
 {
-    for (u32 i = 0; i <= c_m3ProfilerSlotMask; ++i)
-    {
-        M3ProfilerSlot * slot = & s_opProfilerCounts [i];
+    M3ProfilerSlot dummy;
+    M3ProfilerSlot * maxSlot = & dummy;
 
-        if (slot->opName)
-            printf ("%13llu  %s\n", slot->hitCount, slot->opName);
+    do
+    {
+        maxSlot->hitCount = 0;
+        
+        for (u32 i = 0; i <= c_m3ProfilerSlotMask; ++i)
+        {
+            M3ProfilerSlot * slot = & s_opProfilerCounts [i];
+            
+            if (slot->opName)
+            {
+                if (slot->hitCount > maxSlot->hitCount)
+                    maxSlot = slot;
+            }
+        }
+
+        if (maxSlot->opName)
+        {
+            fprintf (stderr, "%13llu  %s\n", maxSlot->hitCount, maxSlot->opName);
+            maxSlot->opName = NULL;
+        }
     }
+    while (maxSlot->hitCount);
 }
 
 # else

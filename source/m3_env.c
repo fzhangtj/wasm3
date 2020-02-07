@@ -175,6 +175,8 @@ void  ReleaseRuntime  (IM3Runtime i_runtime)
     FreeCompilationPatches (& i_runtime->compilation);
 
     m3Free (i_runtime->stack);
+
+    m3Free (i_runtime->memory.mallocated);
 }
 
 
@@ -182,6 +184,8 @@ void  m3_FreeRuntime  (IM3Runtime i_runtime)
 {
     if (i_runtime)
     {
+        m3_PrintProfilerInfo ();
+        
         ReleaseRuntime (i_runtime);
         m3Free (i_runtime);
     }
@@ -327,7 +331,7 @@ M3Result  ResizeMemory  (IM3Runtime io_runtime, u32 i_numPages)
 
         // Limit the amount of memory that gets allocated
         if (io_runtime->memoryLimit) {
-            numPageBytes = min(numPageBytes, io_runtime->memoryLimit);
+            numPageBytes = M3_MIN(numPageBytes, io_runtime->memoryLimit);
         }
 
         size_t numBytes = numPageBytes + sizeof (M3MemoryHeader);
@@ -455,7 +459,7 @@ _           (ReadLEB_u32 (& numElements, & bytes, end));
 
             if (endElement > offset) // TODO: check this, endElement depends on offset
             {
-                io_module->table0 = (IM3Function*)m3RellocArray (io_module->table0, IM3Function, endElement, io_module->table0Size);
+                io_module->table0 = (IM3Function*)m3ReallocArray (io_module->table0, IM3Function, endElement, io_module->table0Size);
 
                 if (io_module->table0)
                 {
@@ -489,14 +493,14 @@ M3Result  InitStartFunc  (IM3Module io_module)
     M3Result result = m3Err_none;
 
     if (io_module->startFunction >= 0)
-	{
-		IM3Function function = & io_module->functions [io_module->startFunction];
+    {
+	    IM3Function function = & io_module->functions [io_module->startFunction];
 
         if (not function->compiled)
         {
 _           (Compile_Function (function));
         }
-		
+	    
 _       (m3_Call(function));
     }
 
